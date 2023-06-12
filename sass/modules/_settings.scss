@@ -1,0 +1,208 @@
+#settings {
+    width: fit-content;
+    display: grid;
+    grid-template-rows: 1fr auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    align-items: stretch;
+    column-gap:8px;
+    row-gap:2px;
+    padding-top: 8px;
+
+    #settings-save {
+        grid-column: 1;
+        grid-row: 1;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+
+        margin-top: 8px;
+    }
+
+    #settings-restore {
+        grid-column: 1;
+        grid-row: 2 / 4;
+        width: 100%;
+        margin-top: 8px;
+    }
+
+    #settings-synth {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    #settings-wavetable {
+        grid-column: 2;
+        grid-row: 2;
+        width: 100%;
+        min-height: 96px;
+    }
+
+    #settings-dds {
+        grid-column: 2;
+        grid-row: 3;
+        width: 100%;
+        min-height: 96px;
+    }
+
+    #settings-SNR {
+        grid-column: 3;
+        grid-row: 1 / 4;
+    }
+
+    #settings-SNG {
+        grid-column: 4;
+        grid-row: 1 / 4;
+    }
+
+    #settings-SNB {
+        grid-column: 5;
+        grid-row: 1 / 4;
+    }
+
+    #settings-envelope {
+        grid-column: 6;
+        grid-row: 1 / 4;
+    }
+
+    #settings-LFO{
+        grid-column: 7;
+        grid-row: 1 / 4;
+    }
+
+    .panel {
+        min-width: 100px;
+        width: fit-content;
+
+        display: flex;
+        flex-direction: column;
+        row-gap: 4px;
+
+        padding-left: 8px;
+        padding-right: 8px;
+
+        legend {
+            color: $faded-blue;
+            padding-left: 4px;
+            padding-right: 4px;
+            margin-left: 8px;
+
+            font-family: sans-serif;
+            font-size: 0.9em;
+            font-variant: small-caps;
+            font-variant-caps: all-small-caps;
+        }
+
+        input {
+            background: #a0a0a0;
+            width: 92px;
+            min-height: 24px;
+            border-radius: 4px;
+            padding-left: 12px;
+            padding-right: 12px;
+            overflow: hidden;
+            text-align: center;
+            text-overflow: ellipsis;
+            user-select: none;
+            outline: none;
+        }
+
+        input.text {
+            width: 240px;
+            text-align: left;
+        }
+
+        img {
+            width: 48px;
+        }
+
+        div {
+            display: flex;
+            flex-direction: row;
+            column-gap: 8px;
+
+            fieldset {
+                display: flex;
+                flex-direction: column;
+                row-gap: 4px;
+            }
+        }
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto 1fr;
+        align-items: center;
+        row-gap: 12px;
+
+        padding-top: 16px;
+        padding-bottom: 16px;
+        padding-left: 16px;
+        padding-right: 16px;
+
+        div.checkboxes {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            row-gap: 0px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            padding-left: 0px;
+            padding-right: 0px;
+
+            label {
+                display: flex;
+                align-items: center;
+                column-gap: 8px;
+                color: $faded-blue;
+                font-family: sans-serif;
+                font-size: 0.9em;
+                font-variant: small-caps;
+                font-variant-caps: all-small-caps;
+
+                input[type="checkbox"] {
+                    width: fit-content;
+                    border: none;
+                    user-select: none;
+                    outline: none;
+                }
+            }
+        }
+    }
+
+    label.checkbox {
+        margin-bottom: 4px;
+        cursor: pointer;  
+        user-select: none;
+
+        input[type="checkbox"] {
+            display: none;
+        }
+
+        div {
+            background: $dark-blue;
+            display: block;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            overflow: hidden;
+            
+            img {
+                width: 14px;
+                margin-left: -1px;
+                margin-top: 1px;
+                visibility: hidden;
+            }        
+        }
+    }
+
+    label.checkbox input[type="checkbox"]:checked ~ div {
+        background: $faded-blue;
+        img {
+            visibility: inherit;
+        }
+    }    
+}
+

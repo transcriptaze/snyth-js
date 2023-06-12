@@ -1,0 +1,39 @@
+.control-knob {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  overflow:  visible;
+  padding: 0px 0px 0px 0px;
+
+  input {
+    display: none;
+  }
+
+  canvas {
+    grid-column: 1;
+    grid-row: 1;
+    width:  104px;
+    height: 104px;
+  }
+
+  svg {
+    grid-column: 1;
+    grid-row: 1;
+    background: transparent;
+    overflow: visible;
+    z-index: 2
+  }
+
+  div.overlay {
+    grid-column: 1;
+    grid-row: 1;
+    width:  100%;
+    height: 100%;
+    border-radius: 40%;
+    z-index: 3;
+  }
+
+  div.overlay.dragging {
+    cursor: grab;
+  }
+}

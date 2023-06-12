@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     viewBox="-25 -25 50 50"
+     overflow="visible">
+  <defs>
+    <radialGradient id="on">
+      <stop offset="0%"   stop-color="#ff0000f0" />
+      <stop offset="25%"  stop-color="#ff0000e0" />
+      <stop offset="90%"  stop-color="#ff000080" />
+      <stop offset="100%" stop-color="#ff000000" opacity="0%"/>
+    </radialGradient>
+  </defs>
+
+  <circle id="background" cx="0" cy="0" r="18" fill="currentColor" stroke="none" />
+  <circle id="led"        cx="0" cy="0" r="16" fill="url('#on')"   opacity="0%" />
+</svg>

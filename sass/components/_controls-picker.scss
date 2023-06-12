@@ -1,0 +1,226 @@
+div#midi {
+    position: relative; 
+    background: var(--element-flat-background);
+    box-shadow: var(--element-flat-shadow);
+    border: 0.5px solid $dark-blue;
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "title title title" "left picker right" "progress progress progress";
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+
+    input#title {
+        grid-area: title;    
+
+        background: transparent;
+        margin-top: 4px;
+        margin-bottom: 0px;
+        margin-left: 8px;
+        margin-right: 8px;
+        padding: 0;
+
+        color: $normal-blue;
+        font-family: sans-serif;
+        font-size: 0.9em;
+        font-variant: small-caps;
+        font-variant-caps: all-small-caps;
+
+        text-overflow: ellipsis;
+        text-align: center;
+        outline: none;
+        user-select: none;
+
+        border: none;
+        box-sizing: border-box;
+    }
+
+    img#queued {
+        grid-row: 1;
+        grid-column: 3;
+        justify-self: right;
+        align-self: top;
+        
+        width: 8px;
+        margin-top: 2px;
+        margin-right: 2px;
+        padding: 2px;
+        
+        opacity: 10%;
+    }
+
+    img#queued.queued {
+        filter: invert(73%) sepia(25%) saturate(4519%) hue-rotate(359deg) brightness(105%) contrast(106%);
+        opacity: 80%;
+    }
+
+    img#queued.queued:hover {
+        filter: invert(73%) sepia(25%) saturate(4519%) hue-rotate(359deg) brightness(105%) contrast(106%);
+        opacity: 100%;
+    }
+
+    div.left {
+        grid-area: left;    
+        justify-self: start;
+    }
+
+    div.right {
+        grid-area: right;    
+        justify-self: end;
+    }
+
+    div#picker {
+        grid-area: picker;
+        justify-self: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 8px;
+        padding-top: 16px;
+        padding-bottom: 0px;
+        padding-left: 8px;
+        padding-right: 8px;
+  
+        img {
+            width: 88px;
+            filter: invert(61%) sepia(82%) saturate(587%) hue-rotate(170deg) brightness(105%) contrast(101%);
+            opacity: 50%;
+        }
+
+        img:hover {
+            opacity: 80%;
+            cursor: pointer;
+        }
+
+        img.hover {
+            opacity: 80%;
+            cursor: pointer;
+        }
+    }
+
+    div.files {
+        width: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 2px;
+        padding-top: 8px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    #progressbar {
+        grid-area: progress;
+        height: 2px;
+        margin-top: 2px;
+        margin-bottom: 4px;
+        margin-left: 4px;
+        margin-right: 4px;
+
+        color: $dark-blue;
+    }
+
+    #progressbar::part(line) {
+        color: red;
+    }
+}
+
+dialog {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0px;
+    z-index: 2;
+
+    background: red;
+    width: 400px;
+    height: fit-content;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    border-radius: 4px;
+
+    div {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+
+        padding-top: 0px;
+        padding-bottom: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        border: none;
+        border-radius: 4px;
+
+        input {
+            grid-column: 1;
+            grid-row: 1;
+            background: #a0a0a0;
+            width: 100%;
+            min-height: 24px;
+            box-sizing: border-box;
+
+            margin: 0;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-left: 8px;
+            padding-right: 8px;
+
+            border: none;
+            border-radius: 4px;
+
+            font-family: sans-serif;
+            font-size: 0.7em;
+            overflow: hidden;
+            text-align: left;
+            text-overflow: ellipsis;
+            outline: none;
+        }
+
+        input::placeholder {
+            font-family: sans-serif;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+
+        button {
+            grid-column: 1;
+            grid-row: 1;
+            justify-self: end;
+
+            background: transparent;
+            width: fit-content;
+            min-height: 24px;
+            height: 100%;
+            line-height: 1.2;
+            
+            display: inline-flex;;
+            justify-content: flex-end;
+            align-items: center;
+
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-right: 8px;
+            padding-left: 8px;
+
+            border: none;
+            border-radius: 4px;
+
+            img {
+                height: 16px;
+            }
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+
+
+

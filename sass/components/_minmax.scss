@@ -1,0 +1,34 @@
+div.minmax {
+    width: 12px;
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    align-items: center;
+
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    user-select: none;
+
+    svg {
+        grid-row: 1;
+        grid-column: 1;
+        width: 100%;
+        height: 100%;
+    }
+
+    div.overlay {
+        grid-row: 1;
+        grid-column: 1;
+
+        width: 100%;
+        height: 100%;
+        z-index: 2;
+    }
+}
+

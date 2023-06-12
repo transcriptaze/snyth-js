@@ -1,0 +1,62 @@
+div.slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+    cursor: pointer;
+
+    img {
+        width: 20px;
+        height: 8px;
+        filter: none;    
+        opacity: 10%;
+    }
+}
+
+div.slot.enabled {
+    img {
+        filter: invert(65%) sepia(48%) saturate(735%) hue-rotate(168deg) brightness(102%) contrast(102%);
+        opacity: 50%;
+    }    
+}
+
+div.slot.enabled:hover {
+    cursor: pointer;
+
+    img {
+        filter: invert(65%) sepia(48%) saturate(735%) hue-rotate(168deg) brightness(102%) contrast(102%);
+        opacity: 100%;
+    }
+}
+
+div.slot.queued {
+    img {
+        filter: invert(73%) sepia(25%) saturate(4519%) hue-rotate(359deg) brightness(105%) contrast(106%);
+        opacity: 80%;
+    }    
+}
+
+div.slot.queued:hover {
+    img {
+        filter: invert(73%) sepia(25%) saturate(4519%) hue-rotate(359deg) brightness(105%) contrast(106%);
+        opacity: 100%;
+    }    
+}
+
+div.slot.error {
+    img {
+        filter: invert(12%) sepia(83%) saturate(5234%) hue-rotate(357deg) brightness(92%) contrast(114%);
+        opacity: 80%;
+    }    
+}
+
+div.slot.error:hover {
+    img {
+        filter: invert(13%) sepia(93%) saturate(4162%) hue-rotate(354deg) brightness(101%) contrast(121%);
+        opacity: 100%;
+    }    
+}
+

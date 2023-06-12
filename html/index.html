@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>snyth</title>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/snyth.css"  type="text/css" id="css_snyth">
+  </head>
+
+  <body>
+    <header>
+      <div class="logo">
+        <img id="logo" src="./images/logo.png" draggable="false" />
+      </div>
+      <div class="right">
+                <!-- MIDI file picker -->
+        <snyth-picker id="midi"></snyth-picker>
+        <div class="strut"></div>
+
+        <!-- synth controls -->
+        <snyth-recording id="record" class="element"></snyth-recording>
+        <snyth-gain      id="gain" min="0" max="1" step="0.01" default="0.2" value="0.2" level-width="2" level-scale="1.25"></snyth-gain>
+        <button                  id="reset"    class="element">reset</button>
+        <snyth-controls-load     id="load"     class="element load" auto></snyth-controls-load>
+        <snyth-controls-envelope id="envelope" class="element" tag="envelope"></snyth-controls-envelope>
+        <snyth-worklets id="worklets" class="element worklets"></snyth-worklets>
+
+        <div id="buttons" data-state="stopped">
+          <snyth-play id="play" class="element play"></snyth-play>
+          <button id="stop" class="element play" disabled>
+            <img src="./images/stop.svg" draggable="false" />
+          </button>
+        </div>
+
+        <snyth-volume id="volume" min="0" max="1" step="0.01" default="0.25" value="0.25"></snyth-volume>
+
+        <!-- power on/off -->
+        <div>
+          <button id="power" class="element" onclick="onPowerOn(event)"><img src="/images/power.svg" draggable="false" /></button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <div id="content">
+
+        <!-- KEYBOARD -->
+        <div id="keyboard" class="container">
+          <div class="keyboard"></div>
+        </div>
+
+        <!-- SYNTH -->
+        <div id="synth">
+          <div class="pages visible">
+            <input id="osc"  type="radio" name="page" onclick="onPage(event)" value="OSC" checked/>
+            <label for="osc" class="element text" />OSC</label>
+            
+            <input id="env"  type="radio" name="page" onclick="onPage(event)" value="ENV" />
+            <label for="env" class="element text">ENV</label>
+            
+            <input id="lfo"  type="radio" name="page" onclick="onPage(event)" value="LFO" />
+            <label for="lfo" class="element text">LFO</label>
+            
+            <input id="gear"  type="radio" name="page" onclick="onPage(event)" value="settings" />
+            <label for="gear" class="element image"><img src="./images/settings.svg" /></label>
+            
+            <input id="misc"  type="radio" name="page" onclick="onPage(event)" value="info" />
+            <label for="misc" class="element image"><img src="./images/info.svg" /></label>
+          </div>
+
+          <!-- OSC -->
+          <div id="OSC" class="page visible" data-page="OSC">
+            <div id="control-panel" class="control-panel">
+              <snyth-controlset tag="sn.R" class="controlset red"></snyth-controlset>
+              <snyth-controlset tag="sn.G" class="controlset green"></snyth-controlset>
+              <snyth-controlset tag="sn.B" class="controlset blue"></snyth-controlset>
+            </div>
+
+            <snyth-genfn     id="osc-genfn"    class="genfn"></snyth-genfn>
+            <snyth-waveform  id="osc-waveform" class="waveform"></snyth-waveform>
+            <snyth-fft       id="osc-fft"      class="fft"></snyth-fft>
+            
+            <div id="osc-filters">
+              <snyth-checkbox id="osc-aa" label="AA"></snyth-checkbox>
+            </div>
+          
+            <div class="waveform-buttons">
+              <snyth-checkbox id="osc-animate"></snyth-checkbox>
+              <snyth-zoom id="osc-zoom"></snyth-zoom>
+              <div id="osc-traces" class="traces">
+                <snyth-pushbutton class="element" img="./images/component.svg" tag="trace.1"></snyth-pushbutton>
+                <snyth-pushbutton class="element" img="./images/component.svg" tag="trace.2"></snyth-pushbutton>
+                <snyth-pushbutton class="element" img="./images/component.svg" tag="trace.3"></snyth-pushbutton>
+                <snyth-pushbutton class="element" img="./images/component.svg" tag="trace.4"></snyth-pushbutton>
+              </div>
+            </div>
+          </div>
+
+          <!-- ENV -->
+          <div id="envelopes" class="page" data-page="ENV">
+            <div class="grid">
+              <snyth-envelope class="grid-item envelope edited favourite" envelope="0.3.1" icon="ar"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope edited favourite" envelope="0.3.2" icon="ar"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope edited"           envelope="0.3.3" icon="ar"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope"                  envelope="0.3.4" icon="ar"></snyth-envelope>
+
+              <snyth-envelope class="grid-item envelope edited favourite" envelope="0.3.5"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope" envelope="0.3.6"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope" envelope="0.3.7"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope" envelope="0.3.8"></snyth-envelope>
+
+              <snyth-envelope class="grid-item envelope" envelope="0.3.9"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope" envelope="0.3.10"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope" envelope="0.3.11"></snyth-envelope>
+              <snyth-envelope class="grid-item envelope" envelope="0.3.12"></snyth-envelope>
+            </div>
+
+            <div class="values">
+              <div class="placeholder" data-id="A"><input type="text" value="" readonly /></div>
+              <div class="placeholder" data-id="D"><input type="text" value="" readonly /></div>
+              <div class="placeholder" data-id="S"><input type="text" value="" readonly /></div>
+              <div class="placeholder" data-id="R"><input type="text" value="" readonly /></div>
+
+              <snyth-range-ms    icon="triangle" value="" min="0" max="1" data-id="A"></snyth-range-ms>
+              <snyth-range-ms    icon="square"   value="" min="0" max="1" data-id="D"></snyth-range-ms>
+              <snyth-range-float icon="circle"   value="" min="0" max="1" data-id="S"></snyth-range-float>
+              <snyth-range-ms    icon="diamond"  value="" min="0" max="1" data-id="R"></snyth-range-ms>
+            </div>
+
+            <snyth-envelope-editor class="editor"></snyth-envelope-editor>
+            <div class="description">
+               <input id="envelope-tag"  type="text" maxlength="4" value="" />
+               <input id="envelope-text" type="text" value="" />
+            </div>
+
+            <div class="buttons">
+              <snyth-checkbox id="env-animate"></snyth-checkbox>
+            </div>
+          </div>
+
+          <!-- LFO -->
+          <div id="LFO" class="page" data-page="LFO">
+            <div class="control-panel">
+              <snyth-controlset tag="sn.R" class="controlset red"></snyth-controlset>
+              <snyth-controlset tag="sn.G" class="controlset green"></snyth-controlset>
+              <snyth-controlset tag="sn.B" class="controlset blue"></snyth-controlset>
+            </div>
+
+            <snyth-genfn    id="lfo-genfn"    class="genfn"    grid-colour="#008080c0"></snyth-genfn>
+            <snyth-waveform id="lfo-waveform" class="waveform" grid-colour="#008080c0"></snyth-waveform>
+
+            <div class="patch-controls">              
+              <div class="switches">
+                <snyth-togglebutton tag="lfo.1" class="element yellow" img="./images/toggle.svg" states="on|off" state="off"></snyth-togglebutton>
+                <snyth-togglebutton tag="lfo.2" class="element red"    img="./images/toggle.svg" states="on|off" state="off"></snyth-togglebutton>
+                <snyth-togglebutton tag="lfo.3" class="element green"  img="./images/toggle.svg" states="on|off" state="off"></snyth-togglebutton>
+                <snyth-togglebutton tag="lfo.4" class="element blue"   img="./images/toggle.svg" states="on|off" state="off"></snyth-togglebutton>
+              </div>
+
+              <div class="frequencies">
+                <snyth-lfo-frequency tag="lfo.1" oid="0.4.1.2"
+                                     min="0.1" max="11" steps="any" default="0.1" value="0.1" 
+                                     label="ƒ₁" dot-colour="#ffb300"></snyth-lfo-frequency>
+                <snyth-lfo-frequency tag="lfo.2" oid="0.4.2.2"
+                                     min="0.1" max="11" steps="any" default="0.1" value="0.1" 
+                                     label="ƒ₂" dot-colour="#ff0000"></snyth-lfo-frequency>
+                <snyth-lfo-frequency tag="lfo.3" oid="0.4.3.2"
+                                     min="0.1" max="11" steps="any" default="0.1" value="0.1" 
+                                     label="ƒ₃"  dot-colour="#00ff00"></snyth-lfo-frequency>
+                <snyth-lfo-frequency tag="lfo.4" oid="0.4.4.2"
+                                     min="0.1" max="11" steps="any" default="0.1" value="0.1" 
+                                     label="ƒ₄" dot-colour="#0080fe"></snyth-lfo-frequency>
+              </div>
+
+              <div class="ranges">
+                <snyth-minmax tag="lfo.1" value="" min="-1" max="1" colour="#ffb300b0"></snyth-minmax>
+                <snyth-minmax tag="lfo.2" value="" min="-1" max="1" colour="#ff0000b0"></snyth-minmax>
+                <snyth-minmax tag="lfo.3" value="" min="-1" max="1" colour="#00ff00a0"></snyth-minmax>
+                <snyth-minmax tag="lfo.4" value="" min="-1" max="1" colour="#0080feff"></snyth-minmax>
+              </div>
+            </div>
+            <snyth-patch-panel class="patch-panel"></snyth-patch-panel>
+          </div>
+
+          <!-- settings -->
+          <div id="settings" class="page" data-page="settings">
+            <input id="settings-file" type="file" accept="application/json" onchange="onSettingsRestore(event)" style="display:none;" />
+            <a     id="settings-download" href="" style="display:none" download></a>
+
+            <div id="settings-save" class="panel buttons">
+              <button id="save"    class="element" onclick="onSave(event)">save</button>
+              <div class="checkboxes">
+                <label id="timestamp" class="checkbox">
+                  <input type="checkbox" />
+                  <div>
+                    <img src="./images/tick.svg" draggable="false" />
+                  </div>
+                  Timestamp
+                </label>
+                <label id="wavetable" class="checkbox">
+                  <input type="checkbox" />
+                  <div>
+                    <img src="./images/tick.svg" draggable="false" />
+                  </div>
+                  Wavetable
+                </label>
+                <label id="smf" class="checkbox">
+                  <input type="checkbox" />
+                  <div>
+                    <img src="./images/tick.svg" draggable="false" />
+                  </div>
+                  MIDI
+                </label>
+              </div>
+            </div>
+
+            <div id="settings-restore" class="panel buttons">
+              <button id="restore" class="element" onclick="onSettingsLoad(event)">load</button>
+              <button id="clear"   class="element" onclick="onClear(event)">clear</button>
+            </div>
+
+            <fieldset id="settings-synth" class="panel">
+              <legend>synth</legend>
+              <input class="field text" data-oid="0.5.0.1"                  readonly placeholder="song"   title="song" />
+              <input class="field text" data-oid="0.5.0.2"                  readonly placeholder="file"   title="file" />
+              <input class="field"      data-oid="0.0.0.2" data-format="%%" readonly placeholder="volume" title="volume" />
+              <input class="field"      data-oid="0.0.0.3" data-format="%%" readonly placeholder="gain"   title="gain" />
+            </fieldset>
+
+            <fieldset id="settings-wavetable" class="panel">
+              <legend>wavetable</legend>
+            </fieldset>
+
+            <fieldset id="settings-dds" class="panel">
+              <legend>DDS</legend>
+            </fieldset>
+
+            <fieldset id="settings-SNR" class="panel">
+              <legend>R</legend>              
+              <input class="field" data-oid="0.1.1.1"  data-format="%d"   readonly placeholder="𝓂" title="𝓂" />
+              <input class="field" data-oid="0.1.1.2"  data-format="%.3f" readonly placeholder="ε" title="ε" />
+              <input class="field" data-oid="0.1.1.3"  data-format="%.1f" readonly placeholder="𝗌" title="𝗌" />
+              <input class="field" data-oid="0.1.1.4"  data-format="%°"   readonly placeholder="θ" title="θ" />
+              <input class="field" data-oid="0.1.1.5"  data-format="%.2f" readonly placeholder="a" title="a" />
+              <input class="field" data-oid="0.1.1.6"  data-format="%.2f" readonly placeholder="δx" title="δx" />
+              <input class="field" data-oid="0.1.1.7"  data-format="%.2f" readonly placeholder="δy" title="δy" />
+              <input class="field" data-oid="0.1.1.8"  data-format="%°"   readonly placeholder="Φ" title="Φ" />
+              <input class="field" data-oid="0.1.1.9"  data-format="%°"   readonly placeholder="𝜓" title="𝜓" />
+              <input class="field" data-oid="0.1.1.10" data-format="%.1f" readonly placeholder="b" title="b" />
+              <input class="field" data-oid="0.1.1.11" data-format="%s"   readonly placeholder="shape" title="shape" />
+            </fieldset>
+
+            <fieldset id="settings-SNG" class="panel">
+              <legend>G</legend>              
+              <input class="field" data-oid="0.1.2.1"  data-format="%d"   readonly placeholder="𝓂" title="𝓂" />
+              <input class="field" data-oid="0.1.2.2"  data-format="%.3f" readonly placeholder="ε" title="ε" />
+              <input class="field" data-oid="0.1.2.3"  data-format="%.1f" readonly placeholder="𝗌" title="𝗌" />
+              <input class="field" data-oid="0.1.2.4"  data-format="%°"   readonly placeholder="θ" title="θ" />
+              <input class="field" data-oid="0.1.2.5"  data-format="%.2f" readonly placeholder="a" title="a" />
+              <input class="field" data-oid="0.1.2.6"  data-format="%.2f" readonly placeholder="δx" title="δx" />
+              <input class="field" data-oid="0.1.2.7"  data-format="%.2f" readonly placeholder="δy" title="δy" />
+              <input class="field" data-oid="0.1.2.8"  data-format="%°"   readonly placeholder="Φ" title="Φ" />
+              <input class="field" data-oid="0.1.2.9"  data-format="%°"   readonly placeholder="𝜓" title="𝜓" />
+              <input class="field" data-oid="0.1.2.10" data-format="%.1f" readonly placeholder="b" title="b" />
+              <input class="field" data-oid="0.1.2.11" data-format="%s"   readonly placeholder="shape" title="shape" />
+            </fieldset>
+
+            <fieldset id="settings-SNB" class="panel">
+              <legend>B</legend>              
+              <input class="field" data-oid="0.1.3.1"  data-format="%d"   readonly placeholder="𝓂" title="𝓂" />
+              <input class="field" data-oid="0.1.3.2"  data-format="%.3f" readonly placeholder="ε" title="ε" />
+              <input class="field" data-oid="0.1.3.3"  data-format="%.1f" readonly placeholder="𝗌" title="𝗌" />
+              <input class="field" data-oid="0.1.3.4"  data-format="%°"   readonly placeholder="θ" title="θ" />
+              <input class="field" data-oid="0.1.3.5"  data-format="%.2f" readonly placeholder="a" title="a" />
+              <input class="field" data-oid="0.1.3.6"  data-format="%.2f" readonly placeholder="δx" title="δx" />
+              <input class="field" data-oid="0.1.3.7"  data-format="%.2f" readonly placeholder="δy" title="δy" />
+              <input class="field" data-oid="0.1.3.8"  data-format="%°"   readonly placeholder="Φ" title="Φ" />
+              <input class="field" data-oid="0.1.3.9"  data-format="%°"   readonly placeholder="𝜓" title="𝜓" />
+              <input class="field" data-oid="0.1.3.10" data-format="%.1f" readonly placeholder="b" title="b" />
+              <input class="field" data-oid="0.1.3.11" data-format="%s"   readonly placeholder="shape" title="shape" />
+            </fieldset>
+
+            <fieldset id="settings-envelope" class="panel">
+              <legend>envelope</legend>              
+              <input class="field" data-oid="0.0.3.0" data-format="%#"   readonly placeholder="envelope" title="envelope" />
+              <input class="field" data-oid="0.0.3.1" data-format="%ms"  readonly placeholder="A" title="A" />
+              <input class="field" data-oid="0.0.3.2" data-format="%ms"  readonly placeholder="D" title="D" />
+              <input class="field" data-oid="0.0.3.3" data-format="%.2f" readonly placeholder="S" title="S" />
+              <input class="field" data-oid="0.0.3.4" data-format="%ms"  readonly placeholder="R" title="R" />
+            </fieldset>
+
+            <fieldset id="settings-LFO" class="panel">
+              <legend>LFO</legend>              
+              <div class="yellow">
+                <input class="field" data-oid="0.4.1.1"   data-format="%b"    readonly placeholder="on₁"   title="on₁" />
+                <input class="field" data-oid="0.4.1.2"   data-format="%.2f"  readonly placeholder="ƒ₁"    title="ƒ₁" />
+                <input class="field" data-oid="0.4.1.3.1" data-format="%.2f"  readonly placeholder="min₁"  title="min₁" />
+                <input class="field" data-oid="0.4.1.3.2" data-format="%.2f"  readonly placeholder="max₁"  title="max₁" />
+                <input class="field" data-oid="0.4.1.4"   data-format="%plug" readonly placeholder="plug₁" title="plug₁" />
+              </div>
+              <div class="red">
+                <input class="field" data-oid="0.4.2.1"   data-format="%b"    readonly placeholder="on₂"   title="on₂" />
+                <input class="field" data-oid="0.4.2.2"   data-format="%.2f"  readonly placeholder="ƒ₂"   title="ƒ₂" />
+                <input class="field" data-oid="0.4.2.3.1" data-format="%.2f"  readonly placeholder="min₂" title="min₂" />
+                <input class="field" data-oid="0.4.2.3.2" data-format="%.2f"  readonly placeholder="max₂" title="max₂" />
+                <input class="field" data-oid="0.4.2.4"   data-format="%plug" readonly placeholder="plug₂" title="plug₂" />
+              </div>
+              <div class="green">
+                <input class="field" data-oid="0.4.3.1"   data-format="%b"    readonly placeholder="on₃"   title="on₃" />
+                <input class="field" data-oid="0.4.3.2"   data-format="%.2f"  readonly placeholder="ƒ₃"   title="ƒ₃" />
+                <input class="field" data-oid="0.4.3.3.1" data-format="%.2f"  readonly placeholder="min₃" title="min₃" />
+                <input class="field" data-oid="0.4.3.3.2" data-format="%.2f"  readonly placeholder="max₃" title="max₃" />
+                <input class="field" data-oid="0.4.3.4"   data-format="%plug" readonly placeholder="plug₃" title="plug₃" />
+              </div>
+              <div class="blue">
+                <input class="field" data-oid="0.4.4.1"   data-format="%b"    readonly placeholder="on₄"   title="on₄" />
+                <input class="field" data-oid="0.4.4.2"   data-format="%.2f"  readonly placeholder="ƒ₄"   title="ƒ₄" />
+                <input class="field" data-oid="0.4.4.3.1" data-format="%.2f"  readonly placeholder="min₄" title="min₄" />
+                <input class="field" data-oid="0.4.4.3.2" data-format="%.2f"  readonly placeholder="max₄" title="max₄" />
+                <input class="field" data-oid="0.4.4.4"   data-format="%plug" readonly placeholder="plug₄" title="plug₄" />
+              </div>
+
+              <div>
+                <fieldset>
+                  <legend>R</legend>              
+                  <input class="field" data-oid="0.1.4.1"  data-format="%d"   readonly placeholder="𝓂" title="𝓂" />
+                  <input class="field" data-oid="0.1.4.2"  data-format="%.3f" readonly placeholder="ε" title="ε" />
+                  <input class="field" data-oid="0.1.4.3"  data-format="%.1f" readonly placeholder="𝗌" title="𝗌" />
+                  <input class="field" data-oid="0.1.4.4"  data-format="%°"   readonly placeholder="θ" title="θ" />
+                  <input class="field" data-oid="0.1.4.5"  data-format="%.2f" readonly placeholder="a" title="a" />
+                  <input class="field" data-oid="0.1.4.6"  data-format="%.2f" readonly placeholder="δx" title="δx" />
+                  <input class="field" data-oid="0.1.4.7"  data-format="%.2f" readonly placeholder="δy" title="δy" />
+                  <input class="field" data-oid="0.1.4.8"  data-format="%°"   readonly placeholder="Φ" title="Φ" />
+                  <input class="field" data-oid="0.1.4.11" data-format="%s"   readonly placeholder="shape" title="shape" />
+                </fieldset>
+
+                <fieldset>
+                  <legend>G</legend>              
+                  <input class="field" data-oid="0.1.5.1"  data-format="%d"   readonly placeholder="𝓂" title="𝓂" />
+                  <input class="field" data-oid="0.1.5.2"  data-format="%.3f" readonly placeholder="ε" title="ε" />
+                  <input class="field" data-oid="0.1.5.3"  data-format="%.1f" readonly placeholder="𝗌" title="𝗌" />
+                  <input class="field" data-oid="0.1.5.4"  data-format="%°"   readonly placeholder="θ" title="θ" />
+                  <input class="field" data-oid="0.1.5.5"  data-format="%.2f" readonly placeholder="a" title="a" />
+                  <input class="field" data-oid="0.1.5.6"  data-format="%.2f" readonly placeholder="δx" title="δx" />
+                  <input class="field" data-oid="0.1.5.7"  data-format="%.2f" readonly placeholder="δy" title="δy" />
+                  <input class="field" data-oid="0.1.5.8"  data-format="%°"   readonly placeholder="Φ" title="Φ" />
+                  <input class="field" data-oid="0.1.5.11" data-format="%s"   readonly placeholder="shape" title="shape" />
+                </fieldset>
+
+                <fieldset>
+                  <legend>B</legend>              
+                  <input class="field" data-oid="0.1.6.1"  data-format="%d"   readonly placeholder="𝓂" title="𝓂" />
+                  <input class="field" data-oid="0.1.6.2"  data-format="%.3f" readonly placeholder="ε" title="ε" />
+                  <input class="field" data-oid="0.1.6.3"  data-format="%.1f" readonly placeholder="𝗌" title="𝗌" />
+                  <input class="field" data-oid="0.1.6.4"  data-format="%°"   readonly placeholder="θ" title="θ" />
+                  <input class="field" data-oid="0.1.6.5"  data-format="%.2f" readonly placeholder="a" title="a" />
+                  <input class="field" data-oid="0.1.6.6"  data-format="%.2f" readonly placeholder="δx" title="δx" />
+                  <input class="field" data-oid="0.1.6.7"  data-format="%.2f" readonly placeholder="δy" title="δy" />
+                  <input class="field" data-oid="0.1.6.8"  data-format="%°"   readonly placeholder="Φ" title="Φ" />
+                  <input class="field" data-oid="0.1.6.11" data-format="%s"   readonly placeholder="shape" title="shape" />
+                </fieldset>
+              <div>
+
+            </fieldset>
+          </div>
+
+          <!-- info -->
+          <div id="info" class="page" data-page="info">
+            <fieldset id="misc" class="panel">
+              <legend>Info</legend>
+              <label>Version</label>
+              <a href="https://github.com/transcriptaze/snyth/releases/v0.1.0">v0.1.0α</a>
+              <label>github</label>
+              <a href="https://github.com/transcriptaze/snyth">https://github.com/transcriptaze/snyth</a>
+              <label>License</label>
+              <a href="https://github.com/transcriptaze/snyth/LICENSE">GPL-3.0</a>
+              <label>email</label>
+              <a href="mailto://nobody@there.com">nobody@there.com</a>
+            </fieldset>
+
+            <fieldset id="about" class="panel">
+              <legend>About</legend>
+              <em>snyth</em> is an experimental additive synthesizer that uses the <em>Jacobi ellipse</em> as the generator function. By
+              adjusting the eccentricity, rotation and horizontal shift of an ellipse a single oscillator can morph smoothly
+              and intuitively between sine, square, triangular and sawtooth waveforms. 
+              <ul>
+                <li><a href="https://github.com/transcriptaze/snyth/blob/main/documentation/guide.md">User guide</a></li>
+                <li><a href="https://github.com/transcriptaze/snyth/blob/main/documentation/NOTES.md">Notes</a></li>
+                <li><a href="https://github.com/transcriptaze/snyth/blob/main/documentation/FAQ.md">FAQ</a></li>
+                <li><a href="https://github.com/transcriptaze/snyth/blob/main/CHANGELOG.md">Release Notes</a></li>
+              </ul>
+            </fieldset>
+
+            <fieldset id="attributions" class="panel">
+              <legend>Attributions</legend>
+              <ul>
+                <li>FFT by <a href="https://www.nayuki.io/page/free-small-fft-in-multiple-languages">Project Nayuki</a></li>
+                <li>Greensleeves (Too) MIDI is based on Charles Duncan's classical guitar arrangement</li>
+                <li>Loop, settings and info icons by <a href="http://www.onlinewebfonts.com/icon">onlinewebfonts.com</a></li>
+                <li>Save icon by <a href="https://www.iconarchive.com/show/flatwoken-icons-by-alecive">iconarchive:alecive</a></li>
+                <li>Sound wave icon by <a href="https://clipground.com/images/sound-wave-icon-png.png">clipground</a></li>
+              </ul>
+            </fieldset>
+
+            <fieldset id="cookies" class="panel">
+              <legend>Cookies</legend>
+              This website does not use cookies of any sort, kind, type, species or gender. Any cookies you may find lurking
+              were put there by somebody else and you should complain (vociferously) to them. Settings and possibly some MIDI
+              data may be stored locally for your convenience but are not sent to any server of any sort anywhere (well, not
+              intentionally anyway).
+            </fieldset>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <footer />
+
+    <!-- TEMPLATES -->
+
+    <template id="template-controlset">
+      <div class="controlset">
+        <div class="controls">
+          <img class="icon" src="./images/soundwave.png" />
+          <snyth-knob-lr part="eccentricity" min="-1"   max="1"  step="any" default="0"  value="0"   tag="ε"  label="ε"></snyth-knob-lr>
+          <snyth-knob-s  part="sensitivity"  min="0"    max="20" step="any" default="10" value="10"  tag="𝗌"  label="𝗌"></snyth-knob-s>
+          <snyth-knob-lr part="rotation"     min="-90"  max="90" step="1"   default="0"  value="30"  tag="θ"  label="θ" m="-1" ></snyth-knob-lr>
+          <snyth-knob-s  part="amplitude"    min="0"    max="1"  step="any" default="1"  value="0.7" tag="a"  label="a"></snyth-knob-s>
+          <snyth-knob-lr part="shiftx"       min="-1"   max="1"  step="any" default="1"  value="0"   tag="δx" label="δx"></snyth-knob-lr>
+          <snyth-knob-lr part="shifty"       min="-1"   max="1"  step="any" default="1"  value="0"   tag="δy" label="δy"></snyth-knob-lr>
+          <snyth-knob-lr part="phase"        min="-90"  max="90" step="1"   default="0"  value="0"   tag="Φ"  label="Φ" m="-1" ></snyth-knob-lr>
+          <snyth-knob-lr part="psi"         min="-90"  max="90" step="1"   default="0"  value="0"   tag="𝜓"  label="𝜓"></snyth-knob-lr>
+          <snyth-knob-lr part="balance"     min="-1"   max="1"  step="0.1" default="0"  value="0"   tag="b"  label="b"></snyth-knob-lr>
+        </div>        
+        <div class="selectors">
+          <snyth-shape  part="shape"     class="element shape" default="ellipse" value="ellipse" tag="shape"></snyth-shape>
+          <snyth-knob-m part="frequency" class="frequency" min="1" max="8" step="1" default="1" value="1" tag="m" label="𝓂"></snyth-knob-m>
+        </div>
+      </div>
+    </template>
+
+    <template id="template-controls-knob">
+      <div class="control-knob">
+        <input type="range" min="0" max="1" step="0.01" value="0.2" />
+        <canvas width="208" height="208"></canvas>
+        <svg version="1.1" viewBox="-25 -25 50 50" overflow="visible">
+          <defs>
+            <radialGradient id="shadow" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="85%"  stop-color="#242a2e" opacity="0.4" />
+              <stop offset="100%" stop-color="#242a2e" opacity="0" />
+            </radialGradient>
+            <linearGradient id="dial-base" x1="0" y1="0" x2="2.0" y2="1">
+              <stop offset="0%"   stop-color="#52595f" />
+              <stop offset="100%" stop-color="#2b3238" />
+            </linearGradient>
+            <linearGradient id="dial-highlight" x1="0" y1="0" x2="2.0" y2="1">
+              <stop offset="0%"   stop-color="#70777d" opacity="1" />
+              <stop offset="40%"  stop-color="#70777d" opacity="0" />
+              <stop offset="55%"  stop-color="#70777d" opacity="0" />
+              <stop offset="100%" stop-color="#70777d" opacity="0.3" />
+            </linearGradient>
+            <radialGradient id="clipping">
+              <stop offset="0%"  stop-color="#ff0000ff" />
+              <stop offset="25%" stop-color="#ff0000c0" />
+              <stop offset="60%" stop-color="#ff000040" opacity="0%"/>
+              <stop offset="90%" stop-color="#ff000000" opacity="0%"/>
+            </radialGradient>
+            <filter id="glow"  color-interpolation-filters="sRGB" x="-2" y="-2" width="5" height="5">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+            </filter>
+          </defs>
+          <circle class="indicator-focus" cx="0" cy="0" r="18" fill="#4eccff" filter="url(#glow)" visibility="hidden" />
+          <circle class="bg"              cx="0" cy="0" r="18" fill="#353b3f" stroke="none" />
+          <g>
+            <circle  class="soft-shadow" cx="0" cy="0"  r="16"  fill="url(#shadow)" />
+            <ellipse class="hard-shadow" cx="0" cy="2"  rx="14" ry="14.5" fill="#242a2e" opacity="0.15" />
+            <circle  class="base"        cx="0" cy="0"  r="14"  fill="url(#dial-base)" stroke="#242a2e" stroke-width="1.5" />
+            <circle  class="edge"        cx="0" cy="0"  r="13"  fill="transparent" stroke="url(#dial-highlight)" stroke-width="1.5" />
+            <circle  class="highlight"   cx="0" cy="0"  r="14"  fill="#ffffff" opacity="0" />
+            <circle  class="dot"         cx="0" cy="10" r="1.5" fill="#4eccff" style="transform:rotate(180deg);"/>
+            <circle id="led" cx="0" cy="0"  r="15"   fill="url('#clipping')" opacity="0%" />
+          </g>
+          <circle class="indicator-bg" cx="0" cy="0" r="18" fill="none" stroke="#23292d" stroke-width="1" />
+          <path   class="indicator"    d=""                 fill="none" stroke="#4eccff" stroke-width="1.5" />
+        </svg>
+        <div class="overlay"></div>
+      </div>
+    </template>
+
+    <template id="template-controls-worklets">
+      <div class="worklets">          
+        <input id="wavetable" type="radio" name="worklet" value="wavetable" disabled />
+        <label for="wavetable">wavetable</label>
+        <input id="dds" type="radio" name="worklet" value="DDS" disabled />
+        <label for="dds">DDS</label>
+      </div>
+    </template>
+
+    <template id="template-controls-envelope">
+      <button class="element envelope" disabled>
+        <label></label>
+        <input type="hidden" value="" data-default="" />
+        <img class="env" src="./images/envelope.svg" draggable="false"/>
+      </button>
+    </template>
+
+    <template id="template-controls-load">
+      <button class="load element" disabled>
+        <img class="dot" src="./images/dot.svg" draggable="false" />
+        <p>load</p>
+      </button>
+    </template>
+
+    <template id="template-controls-play">
+      <button class="play element" disabled>
+        <img class="loop"  src="./images/loop.svg" draggable="false" />
+        <img class="state" src="./images/play.svg" draggable="false" />
+      </button>
+    </template>
+
+    <template id="template-knob">
+      <div class="knob">
+        <input type="range" min="-1" max="1" step="any" value="0" data-default="0" />
+        <object data="./images/knob.svg" type="image/svg+xml" width="64" height="64"></object>
+        <div class="overlay"></div>
+      </div>
+    </template>
+
+    <template id="template-lfo-frequency">
+      <div class="lfo-knob">
+        <input type="range" min="0" max="2" step="0.1" value="1" data-default="1" />
+        <object data="./images/lfo-frequency.svg" type="image/svg+xml" width="72" height="72"></object>
+        <div class="overlay"></div>
+      </div>
+    </template>
+
+    <template id="template-pushbutton">
+      <button class="pushbutton element">
+        <img part="img" src="./images/none.svg"  draggable=false />
+      </button>
+    </template>
+
+    <template id="template-checkbox">
+      <label class="checkbox element"><input type="checkbox" /><span part="text">A</span></label>
+    </template>
+
+    <template id="template-range">
+      <div class="range">
+        <div class="field" part="field">
+          <input type="text" value="" readonly />
+          <img src="./images/markers/triangle.svg" draggable="false" />
+          <div class="overlay"></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="template-minmax">
+      <div class="minmax">
+        <svg version="1.1" viewBox="-24 -264 48 528" overflow="visible" preserveAspectRatio="none" height="128">
+          <rect             x="-20" y="-256" width="40" height="512" rx="4" fill="#22222240" stroke-width="0" />
+          <rect id="extent" x="-17" y="-232" width="34" height="464"        fill="#222222ff" stroke-width="0" />
+          <rect id="range"  x="-17" y="0"    width="34" height="100"        fill="#4eccff80" stroke-width="0" />
+          <polygon id="top"    fill="#4eccffa0" points="-17,-232 +17,-232 +17,-253" />
+          <polygon id="bottom" fill="#4eccffa0" points="-17,+232 +17,+232 -17,+253" />
+          <rect x="-20" y="-256" width="40" height="512" rx="4" fill="transparent" stroke="#22222280" stroke-linejoin="round" stroke-width="6" />
+          <line id="colour" x1="-17" y1="-262" x2="+17" y2="-262" stroke="#4eccff80" stroke-width="4" />
+        </svg>
+        <!-- <object data="./images/minmax.svg" type="image/svg+xml"  height="128"></object> -->
+        <div class="overlay"></div>
+      </div>
+    </template>
+
+    <template id="template-shape">
+      <button class="shape element">
+        <input type="hidden" value="ellipse" data-default="ellipse" />
+        <img src="./images/ellipse.svg" draggable="false" />
+      </button>
+    </template>
+
+    <template id="template-genfn">
+      <div class="genfn">
+        <canvas width="600" height="600"></canvas>
+      </div>
+    </template>
+
+    <template id="template-waveform">
+      <div class="waveform">
+        <canvas width="1200" height="600"></canvas>
+      </div>
+    </template>
+
+    <template id="template-fft">
+      <div class="fft">
+        <canvas width="1200" height="300"></canvas>
+      </div>
+    </template>
+
+    <template id="template-zoom">
+      <div class="zoom">
+        <snyth-pushbutton class="element plus"  img="./images/plus.svg"></snyth-pushbutton>
+        <snyth-pushbutton class="element minus" img="./images/minus.svg"></snyth-pushbutton>
+      </div>
+    </template>
+
+    <template id="template-env-editor">
+      <div class="env-editor">
+        <canvas class="envelope"  width="1500" height="600"></canvas>
+        <canvas class="animation" width="1500" height="600"></canvas>
+        <canvas class="overlay"   width="1500" height="600"></canvas>
+      </div>
+    </template>
+
+    <template id="template-env-envelope">
+      <button class="env-envelope">
+        <img class="star" src="./images/star.svg" draggable="false"/>
+        <label></label>
+        <img class="env" src="./images/envelope.svg" draggable="false"/>
+        <input type="hidden" value="" data-default="" />
+      </button>
+    </template>
+
+    <template id="template-patch-panel">
+      <div class="patch-panel">
+        <canvas class="plugs"   width="1200" height="300"></canvas>
+        <canvas class="overlay" width="1200" height="400"></canvas>
+      </div>
+    </template>
+
+    <template id="template-slot">
+      <div class="slot">
+        <img src="./images/slot.svg" draggable="false" />
+      </div>
+    </template>
+
+    <template id="template-knob-s">
+      <div class="knob">
+        <input type="range" min="-1" max="1" step="any" value="0" data-default="0" />
+        <svg version="1.1" viewBox="-25 -25 50 50" overflow="visible">
+          <style>
+            .label {
+              text-anchor: middle;
+              dominant-baseline: middle;
+              fill: #4eccff80;
+              font: italic 10px sans-serif;
+            }
+          </style>
+          <defs>
+            <radialGradient id="shadow" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="85%"  stop-color="#242a2e" opacity="0.4" />
+              <stop offset="100%" stop-color="#242a2e" opacity="0" />
+            </radialGradient>
+        
+            <linearGradient id="dial-base" x1="0" y1="0" x2="2.0" y2="1">
+              <stop offset="0%"   stop-color="#52595f" />
+              <stop offset="100%" stop-color="#2b3238" />
+            </linearGradient>
+        
+            <linearGradient id="dial-highlight" x1="0" y1="0" x2="2.0" y2="1">
+              <stop offset="0%"   stop-color="#70777d" opacity="1" />
+              <stop offset="40%"  stop-color="#70777d" opacity="0" />
+              <stop offset="55%"  stop-color="#70777d" opacity="0" />
+              <stop offset="100%" stop-color="#70777d" opacity="0.3" />
+            </linearGradient>
+          </defs>
+          <circle class="bg" cx="0" cy="0" r="17" fill="#353b3f" stroke="#23292d" stroke-width="1" />
+          <g>
+            <circle  class="soft-shadow" cx="0" cy="0"  r="16"  fill="url(#shadow)" />
+            <ellipse class="hard-shadow" cx="0" cy="2"  rx="14" ry="14.5" fill="#242a2e" opacity="0.15" />
+            <circle  class="base"        cx="0" cy="0"  r="14"  fill="url(#dial-base)" stroke="#242a2e" stroke-width="1.5" />
+            <circle  class="edge"        cx="0" cy="0"  r="13"  fill="transparent" stroke="url(#dial-highlight)" stroke-width="1.5" />
+            <circle  class="highlight"   cx="0" cy="0"  r="14"  fill="#ffffff" opacity="0" />
+            <circle  class="dot"         cx="0" cy="8"  r="0.8" fill="#4eccff" opacity="0.4" style="transform:rotate(180deg);" />
+          </g>
+          <circle class="indicator-bg" cx="0" cy="0" r="13" fill="none" stroke="none"    stroke-width="1.5" />
+          <path   class="indicator"    d=""                 fill="none" stroke="#4eccff" stroke-width="1.5" />
+          <text x="0" y="0" class="label"></text>
+        </svg>
+        <div class="overlay"></div>
+      </div>
+    </template>
+
+    <template id="template-knob-m">
+      <div class="knob">
+        <input type="range" min="-1" max="1" step="any" value="0" data-default="0" />
+        <svg version="1.1" viewBox="-25 -25 50 50" overflow="visible">
+          <style>
+            .label {
+              text-anchor: middle;
+              dominant-baseline: middle;
+              fill: #4eccff80;
+              font: italic 14px sans-serif;
+            }
+          </style>
+          <defs>
+            <radialGradient id="shadow" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="85%"  stop-color="#242a2e" opacity="0.4" />
+              <stop offset="100%" stop-color="#242a2e" opacity="0" />
+            </radialGradient>
+
+            <linearGradient id="dial-base" x1="0" y1="0" x2="2.0" y2="1">
+              <stop offset="0%"   stop-color="#52595f" />
+              <stop offset="100%" stop-color="#2b3238" />
+            </linearGradient>
+
+            <linearGradient id="dial-highlight" x1="0" y1="0" x2="2.0" y2="1">
+              <stop offset="0%"   stop-color="#70777d" opacity="1" />
+              <stop offset="40%"  stop-color="#70777d" opacity="0" />
+              <stop offset="55%"  stop-color="#70777d" opacity="0" />
+              <stop offset="100%" stop-color="#70777d" opacity="0.3" />
+            </linearGradient>
+
+            <filter id="glow"  color-interpolation-filters="sRGB" x="-2" y="-2" width="5" height="5">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="2" />
+            </filter>
+          </defs>
+          <circle class="indicator-focus" cx="0" cy="0" r="23" fill="#4eccff" filter="url(#glow)" visibility="hidden" />
+          <circle class="bg"              cx="0" cy="0" r="23" fill="#353b3f" stroke="none" />
+          <g>
+            <circle  class="soft-shadow" cx="0" cy="0"    r="22"   fill="url(#shadow)" />
+            <ellipse class="hard-shadow" cx="0" cy="2"    rx="20"  ry="14.5" fill="#242a2e" opacity="0.15" />
+            <circle  class="base"        cx="0" cy="0"    r="20"   fill="url(#dial-base)" stroke="#242a2e" stroke-width="1.5" />
+            <circle  class="edge"        cx="0" cy="0"    r="19"   fill="transparent" stroke="url(#dial-highlight)" stroke-width="1.5" />
+            <circle  class="highlight"   cx="0" cy="0"    r="20"   fill="#ffffff" opacity="0" />
+            <circle  class="dot"         cx="0" cy="14.5" r="0.75" fill="#4eccff" style="transform:rotate(180deg);"/>
+          </g>
+          <circle class="indicator-bg" cx="0" cy="0" r="23" fill="none" stroke="#23292d" stroke-width="1" />
+          <path   class="indicator"    d=""                 fill="none" stroke="#4eccff" stroke-width="1.5" />
+          <text   class="label"        x="0" y="0"></text>
+        </svg>
+        <div class="overlay"></div>
+      </div>
+    </template>
+
+    <template id="template-progressbar">
+      <div class="progressbar">
+        <svg version="1.1" viewBox="0 -2 512 4" overflow="visible">
+          <line part="background" class="background" x1="0" y1="0" x2="512" y2="0" stroke="currentColor" stroke-width="2" />
+          <line part="line"       class="at"         x1="0" y1="0" x2="0"   y2="0" stroke="currentColor" stroke-width="2" />
+        </svg>
+      </div>
+    </template>
+
+    <template id="template-recording">
+      <div class="record element">
+        <label for="recording">record</label>
+        <input id="recording" type="checkbox" />
+        <button class="arrow" disabled>
+          <img src="/images/save.svg" draggable="false" />
+        </button>
+        <a id="download" href="" style="display:none" download></a>
+      </div>
+    </template>
+
+    <template id="template-picker">
+      <div id="midi">
+        <input id="title"  type="text" value="" placeholder="load midi file" readonly />
+        <img   id="queued" src="./images/dot.svg" draggable="false" />
+
+        <div class="files left">
+          <snyth-slot id="slot-1" oid="0.5.1.1" href=""></snyth-slot>
+          <snyth-slot id="slot-2" oid="0.5.1.2" href=""></snyth-slot>
+          <snyth-slot id="slot-3" oid="0.5.1.3" href=""></snyth-slot>
+          <snyth-slot id="slot-4" oid="0.5.1.4" href=""></snyth-slot>
+          <snyth-slot id="slot-5" oid="0.5.1.5" href=""></snyth-slot>
+          <snyth-slot id="slot-6" oid="0.5.1.6" href=""></snyth-slot>
+        </div>
+
+        <div id="picker" class="picker">
+          <input id="file" type="file" accept="audio/midi, audio/x-midi" style="display:none;" />
+          <img class="clickable" src="./images/midifile.svg" draggable="false" />
+        </div>
+    
+        <div class="files right">
+          <snyth-slot id="slot-7"  oid="0.5.1.7"  href="./midi/greensleeves.mid"     title="Greensleeves"></snyth-slot>
+          <snyth-slot id="slot-8"  oid="0.5.1.8"  href="./midi/greensleeves-too.mid" title="Greensleeves Too"></snyth-slot>
+          <snyth-slot id="slot-9"  oid="0.5.1.9"  href="./midi/take-five.mid"        title="Take Five"></snyth-slot>
+          <snyth-slot id="slot-10" oid="0.5.1.10" href="./midi/toccata.mid"          title="Toccata in Dm"></snyth-slot>
+          <snyth-slot id="slot-11" oid="0.5.1.11" href=""></snyth-slot>
+          <snyth-slot id="slot-12" oid="0.5.1.12" href=""></snyth-slot>
+        </div>
+
+        <snyth-progressbar id="progressbar" draggable="false"></snyth-progressbar>
+
+        <dialog id="url-picker">
+          <div>
+            <input type="url" placeholder="URL" value="" />
+            <button id="url-picked" class="clickable">
+              <img src="./images/get.svg" draggable="false" />
+            </button>
+          </div>
+        </dialog>
+      </div>
+    </template>
+
+  </body>
+
+  <script type="module">
+    import "./javascript/components/components.js"
+
+    import { powerOn, 
+             powerOff,
+             initialise,
+             save,
+             restore,
+             clear,
+             setSlot } from './javascript/snyth.js'
+
+    window.powerOn = powerOn
+    window.powerOff = powerOff
+    window.save = save
+    window.restore = restore
+    window.clear = clear
+    window.setSlot = setSlot
+
+    initialise()
+  </script>
+
+  <script type="text/javascript">
+    function onPowerOn(event) {
+      const button = event.currentTarget
+
+      if (button.classList.toggle('on')) {
+        window.powerOn()
+      } else {
+        window.powerOff()
+      }
+    }
+
+    function onPage(event) {
+      const page = event.currentTarget.value
+      const pages = document.querySelectorAll('div.page')
+
+      pages.forEach(p => {
+        if (p.dataset.page === page) {
+          p.classList.add('visible')          
+        } else {
+          p.classList.remove('visible')
+        }
+      })
+    }
+
+    function onSave(event) {
+      save()
+    }
+
+    function onSettingsLoad(event) {
+      const input = document.getElementById('settings-file')
+
+      input.value = null
+      input.click()
+    }
+
+    function onSettingsRestore(event) {
+      const files = Array.prototype.map.call(event.target.files, f => f)
+      const input = document.getElementById('file')
+
+      if (files.length > 0) {
+        restore(files[0])
+      }
+    }
+
+    function onClear(event) {
+      clear()
+    }
+
+  </script>
+</html>

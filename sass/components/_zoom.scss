@@ -1,0 +1,20 @@
+.zoom {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2px;
+  padding-top: 6px;
+
+  button {
+    width:  fit-content;
+    height: fit-content;
+    padding: 0px;
+    border-radius: 4px;
+
+    img {
+      width:  24px;
+      height: 24px;
+    }
+  }
+}
+

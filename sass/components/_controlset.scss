@@ -1,0 +1,115 @@
+div.controlset {
+    display: flex;
+    flex-direction: row;
+    column-gap: 4px;
+
+    img.icon {
+        width: 40px;
+        align-self: center;
+        justify-self: center;
+    }
+
+    .controls {
+        width: 100%;
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+        grid-template-rows: auto auto;
+        grid-template-areas: "icon eccentricity sensitivity rotation amplitude" "shiftx shifty phase psi balance";
+        padding: 4px;
+        border: 2px solid $black;
+        border-radius: 8px;
+
+        .icon {
+            grid-area: icon;
+            user-select: none;
+        }
+
+        [tag="ε"] {
+            grid-area: eccentricity;
+        }
+      
+        [tag="𝗌"] {
+            grid-area: sensitivity;
+        }
+                          
+        [tag="θ"] {
+            grid-area: rotation;
+        }
+      
+        [tag="a"] {
+            grid-area: amplitude;
+        }
+      
+        [tag="δx"] {
+            grid-area: shiftx;
+        }
+      
+        [tag="δy"] {
+            grid-area: shifty;
+        }
+      
+        [tag="Φ"] {
+            grid-area: phase;
+        }
+      
+        [tag="𝜓"] {
+            grid-area: psi;
+        }
+      
+        [tag="b"] {
+            grid-area: balance;
+        }
+
+        snyth-knob-s {
+            width: 64px;
+        }
+
+        snyth-knob-lr {
+            width: 64px;
+        }
+    }
+
+    .selectors {
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        border: 2px solid $black;
+        padding: 8px;
+        border-radius: 8px;    
+            
+        snyth-shape {
+            width: 48px;
+            height: 48px;
+        }
+            
+        snyth-knob-x {
+            width: 48px;
+            height: 48px;
+
+            svg {
+                user-select: none;
+            }
+        }
+    }
+}
+
+:host(.red) {
+    img.icon {
+        opacity: 75%;
+        filter: invert(19%) sepia(96%) saturate(7434%) hue-rotate(5deg) brightness(108%) contrast(120%)    
+    }
+}
+
+:host(.green) {
+    img.icon {
+        opacity: 75%;
+        filter: invert(66%) sepia(17%) saturate(6303%) hue-rotate(60deg) brightness(93%) contrast(105%);
+    }
+}
+
+:host(.blue) {
+    img.icon {
+        opacity: 75%;
+        filter: invert(30%) sepia(78%) saturate(3022%) hue-rotate(199deg) brightness(106%) contrast(102%);
+    }
+}

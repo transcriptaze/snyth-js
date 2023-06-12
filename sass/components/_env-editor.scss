@@ -1,0 +1,28 @@
+div.env-editor {
+    grid-area: editor;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+
+    canvas {
+        grid-row: 1;
+        grid-column: 1;
+        background: $black;
+        width: 600px;
+        height: 300px;
+        border: 1px solid #808080;
+        border-radius: 8px;    
+    }
+
+    canvas.animation {
+        background: transparent;
+        z-index: 2;
+    }
+
+    canvas.overlay {
+        background: transparent;
+        z-index: 3;
+    }
+}
+

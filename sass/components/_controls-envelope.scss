@@ -1,0 +1,38 @@
+button.envelope {
+    width: 64px;
+    height: 64px;
+
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+    justify-items: center;
+    align-items: center;
+
+    label {
+        grid-column: 2;
+        grid-row: 1;
+        color: $faded-blue;
+    }
+
+    img {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3;
+        opacity: 100%;
+        filter: invert(65%) sepia(48%) saturate(735%) hue-rotate(168deg) brightness(102%) contrast(102%);
+    }
+}
+
+button.envelope:enabled:hover {
+    cursor: pointer;
+}
+
+button.envelope:disabled {
+    label {
+        color: $disabled-button-text;
+    }
+
+    img {
+        opacity: 80%;
+        filter: invert(8%) sepia(4%) saturate(0%) hue-rotate(174deg) brightness(101%) contrast(88%);    
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "snyth",
+  "version": "0.1.0",
+  "description": "Experimental additive synthesizer using Jacobi ellipses as the generator function",
+  "main": "snyth.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/transcriptaze/snyth-js.git"
+  },
+  "author": "transcriptaze",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/transcriptaze/snyth-js/issues"
+  },
+  "homepage": "https://github.com/transcriptaze/snyth-js#readme",
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-n": "^16.0.0",
+    "eslint-plugin-promise": "^6.1.1"
+  }
+}

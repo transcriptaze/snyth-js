@@ -1,0 +1,175 @@
+#envelopes {
+    height: fit-content;
+    width: fit-content;
+    visibility: hidden;
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-template-rows: auto auto;
+    grid-template-areas: "envelopes values editor buttons" "unused1 unused2 description unused4";
+    column-gap: 16px;
+    row-gap: 8px;
+
+    padding-top: 1px;
+    padding-left: 1px;
+
+    div.grid {
+        grid-area: envelopes;
+        width: fit-content;        
+        
+        display: grid;
+        grid-template-columns: auto auto auto;
+        grid-template-rows: auto auto auto auto;
+        grid-auto-flow: column;
+        
+        padding-top: 12px;
+        padding-bottom: 12px;
+        padding-left: 12px;
+        padding-right: 12px;
+        column-gap: 8px;
+        row-gap: 8px;
+
+        border: 2px solid $black;
+        border-radius: 8px;
+
+        snyth-envelope {
+            user-select: none;
+        }
+    }
+
+    div.values {
+        grid-area: values;
+        height: fit-content;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        row-gap: 4px;
+        padding-top: 8px;
+
+        div.placeholder {
+            background: #2e475fff;
+            padding: 0;
+            margin: 0;
+            border-radius: 4px;
+
+            input {
+                width: 100%;
+                box-sizing: border-box;
+
+                margin: 0;
+                padding-top: 4px;
+                padding-bottom: 4px;
+
+                border: none;
+                border-radius: 4px;
+
+                visibility: hidden;
+            }    
+        }
+
+        div.placeholder[data-id="A"] {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        div.placeholder[data-id="D"] {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        div.placeholder[data-id="S"] {
+            grid-column: 1;
+            grid-row: 3;
+        }
+
+        div.placeholder[data-id="R"] {
+            grid-column: 1;
+            grid-row: 4;
+        }
+
+        snyth-range-ms::part(placeholder) {
+            background: #2e475fff;
+        }
+
+        snyth-range-float::part(placeholder) {
+            background: #2e475fff;
+        }
+
+        snyth-range-ms[data-id="A"] {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        snyth-range-ms[data-id="D"] {
+            grid-column: 1;
+            grid-row: 2;
+        }
+
+        snyth-range-float[data-id="S"] {
+            grid-column: 1;
+            grid-row: 3;
+        }
+
+        snyth-range-ms[data-id="R"] {
+            grid-column: 1;
+            grid-row: 5;
+        }
+    }
+
+    snyth-checkbox {
+        width: 24px;
+        height: 24px;
+    }
+
+    div.buttons {
+        grid-area: buttons;
+        margin-left: -8px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: left;
+        row-gap: 12px;
+    }
+
+     div.description {
+        grid-area: description;
+        width: 100%;
+        display: flex;
+        column-gap: 8px;
+
+        input {
+            background: $white;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-radius: 4px;
+            outline: none;
+        }    
+
+        #envelope-tag {
+            width: 64px;
+            text-overflow: ellipize;
+        }
+
+        #envelope-text {
+            flex-grow: 1;
+            text-overflow: ellipize;
+        }
+    }
+}
+
+#envelopes.visible {
+    visibility: visible;
+
+    div.values {
+        snyth-range-ms.visible::part(field) {
+            visibility: visible;
+        }
+
+        snyth-range-float.visible::part(field) {
+            visibility: visible;
+        }
+    }
+}

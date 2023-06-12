@@ -1,0 +1,82 @@
+.container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  width: 100%;
+  height: fit-content;
+  min-height: 80px;
+
+  display: flex;
+  justify-content: center;
+  
+  white-space: nowrap;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.keyboard {
+  width: auto;
+  height: fit-content;
+  padding: 0;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.key {
+  background: var(--element-convex-background);
+  box-shadow: var(--element-convex-shadow);
+
+  width: 20px;
+  height: 80px;
+  margin-right: 3px;
+
+  font: 16px sans-serif;
+  border: 1px solid black;
+  border-radius: 5px;
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  user-select: none;
+  cursor: pointer;
+}
+
+.key div {
+  position: absolute;
+  bottom: 2px;
+  text-align: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+.key div sub {
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.key:hover {
+  background: #808080;
+  cursor: pointer;
+}
+
+.key:active {
+  background: #000;
+  color: #fff;
+}
+
+.key[data-pressed="yes"] {
+  background: #a0a0a0;
+  color: #000000;
+}
+
+.octave {
+  display: inline-block;
+  height: fit-content;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 6px;
+}
+

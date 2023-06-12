@@ -1,0 +1,215 @@
+@import '../base/_default';
+
+:root {
+  --background: #7498aa;
+  --canvas-background: #fdf6e3;
+  --box-shadow:  4px 4px 8px #688999, -4px -4px 8px #80a7bb;
+
+  --element-flat-background: #354f69; 
+  --element-flat-shadow:  4px 4px 8px #2d4359, -4px -4px 8px #3d5b79c0;
+  --element-concave-background: linear-gradient(145deg, #30475f, #395570);
+  --element-concave-shadow:  4px 4px 8px #2d4359, -4px -4px 8px #3d5b79c0;
+  --element-convex-background: linear-gradient(145deg, #395570, #30475f);
+  --element-convex-shadow:  4px 4px 8px #2d4359, -4px -4px 8px #3d5b79c0;
+  --element-inset-background: #354f69; 
+  --element-inset-shadow: inset 20px 20px 60px #2d4359,
+                          inset -20px -20px 60px #3d5b79;
+}
+
+* {
+  background: transparent;
+  margin: 0;
+  padding: 0; 
+  border: none;
+  box-sizing: border-box;
+  font-family: "Lato";
+}
+
+.element {
+  background: var(--element-concave-background);
+  box-shadow: var(--element-concave-shadow);
+}
+
+.grid-item {
+  background: var(--element-flat-background);
+  box-shadow: var(--element-flat-shadow);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  background: var(--background);
+  background-image: url("/images/denim.webp");
+  background-blend-mode: hard-light;
+  height: 100%;
+  border: none;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+header {
+  position: relative ;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 1500px;
+  margin-left: auto;
+  margin-right: auto;
+
+  padding-top: 8px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+header div.logo {
+  background: var(--element-concave-background);
+  box-shadow: var(--element-inset-shadow);
+  padding: 8px;
+  border-radius: 8px;
+}
+
+header div.right {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-right: 32px;
+
+  div.strut {
+    width: 0px;
+    flex-grow: 1;
+  }
+}
+
+header snyth-worklets {
+  border-radius: 8px;
+}
+
+header div.volume {
+  display:  flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 64px;
+  padding: 0px;
+}
+
+img#logo {
+  height: 80px;
+}
+
+button {
+  width: 64px;
+  height: 64px;
+  outline:  none;
+  border: none;
+  border-radius: 8px;
+  color: $black;
+
+  font-family: sans-serif;
+  font-variant: small-caps;
+  font-variant-caps: all-small-caps;
+  font-size: 1em;
+}
+
+button.highlight {
+  color: $bright-blue;
+}
+
+button:hover:enabled {
+    cursor: pointer;
+}
+
+button:disabled {
+  color: #304860;
+}
+
+button:disabled img {
+  filter: invert(18%) sepia(100%) saturate(2953%) hue-rotate(293deg) brightness(116%) contrast(133%);
+}
+
+#wavetable:disabled {
+  color: #304860;
+}
+
+#dds:disabled {
+  color: #304860;
+}
+
+#power {
+  padding: 0px;
+
+  img {
+    opacity: 60%;  
+  }
+}
+
+#power.on img {
+  filter: invert(8%) sepia(99%) saturate(6871%) hue-rotate(3deg) brightness(98%) contrast(108%);
+  opacity: 92.5%;
+}
+
+#power:hover img {
+  opacity: 100%;  
+  cursor: pointer;
+}
+
+button.play {
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button:disabled img {
+  filter: invert(24%) sepia(29%) saturate(728%) hue-rotate(168deg) brightness(94%) contrast(90%);
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 16px;
+  padding-right: 16px;
+  overflow-y: hidden;
+}
+
+#content {
+  width: fit-content;
+  height: 100%;
+  display:  flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+footer {
+}
+
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+   0% {opacity: 0;}
+   100% {opacity: 1;}
+} 
+
+@-webkit-keyframes fadeIn {
+            0% {opacity: 0;}
+            100% {opacity: 1;}
+}
+

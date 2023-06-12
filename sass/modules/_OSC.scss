@@ -1,0 +1,109 @@
+#OSC {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 
+       "controls genfn   waveform buttons" 
+       "controls genfn   waveform buttons" 
+       "controls filters fft unused2" ;
+    column-gap: 16px;
+    visibility: hidden;
+
+    .control-panel {
+        grid-area: controls;    
+    }
+
+    #osc-genfn {
+        grid-area: genfn;
+    }
+
+    #osc-waveform {
+        grid-area: waveform;
+    }
+
+    #osc-filters {
+        grid-area: filters;
+    }
+
+    #osc-fft {
+        grid-area: fft;
+    }
+
+    .waveform-buttons {
+        grid-area: buttons;
+        margin-left: -8px;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: left;
+        row-gap: 12px;
+    }
+
+    snyth-checkbox {
+        width: 24px;
+        height: 24px;
+    }
+
+    .zoom {
+    }
+
+    .traces {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 4px;
+
+        snyth-pushbutton[tag="trace.1"]::part(img) {
+            filter: invert(15%) sepia(93%) saturate(6799%) hue-rotate(359deg) brightness(100%) contrast(114%);
+        }
+
+        snyth-pushbutton[tag="trace.2"]::part(img) {
+            filter: invert(50%) sepia(98%) saturate(3408%) hue-rotate(91deg) brightness(105%) contrast(109%);
+        }
+
+        snyth-pushbutton[tag="trace.3"]::part(img) {
+            filter: invert(20%) sepia(68%) saturate(6429%) hue-rotate(242deg) brightness(103%) contrast(101%);
+        }
+
+        snyth-pushbutton[tag="trace.4"]::part(img) {
+            filter: invert(94%) sepia(45%) saturate(2475%) hue-rotate(2deg) brightness(106%) contrast(104%);
+        }
+    }
+
+    #osc-aa.enabled {
+       color: #F08000;
+    }
+}
+
+#OSC.visible {
+    visibility: visible;
+}
+
+#osc-filters {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto 1fr;
+    row-gap: 8px;
+
+    padding-top: 4px;
+    padding-right: 8px;
+
+    #osc-dc {
+        grid-row: 1;
+        grid-column: 2;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9em;
+    }
+
+    #osc-aa {
+        grid-row: 2;
+        grid-column: 2;
+        width: 40px;
+        height: 40px;
+        font-size: 0.9em;
+    }
+}
+

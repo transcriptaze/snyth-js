@@ -1,0 +1,16 @@
+button.pushbutton {
+    width:  24px;
+    height: 24px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+ 
+    img {
+        width: 100%;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+    }
+}

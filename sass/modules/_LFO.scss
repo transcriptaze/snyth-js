@@ -1,0 +1,147 @@
+#LFO {
+    width: fit-content;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: 
+       "parameters genfn    waveform zoom" 
+       "parameters genfn    waveform zoom" 
+       "parameters controls patchbay unused";
+    column-gap: 16px;
+    visibility: hidden;
+
+    .control-panel {
+        grid-area: parameters;    
+    }
+
+    snyth-controlset::part(psi) {
+        visibility: hidden;
+    }
+
+    snyth-controlset::part(balance) {
+        visibility: hidden;
+    }
+
+    .genfn {
+        grid-area: genfn;    
+    }
+
+    .waveform {
+        grid-area: waveform;    
+    }
+
+    .patch-controls {
+        grid-area: controls;    
+        display: flex;
+        width: 100%;
+        column-gap: 16px;
+        padding-left: 8px;
+        padding-right: 16px;
+    }
+
+    .patch-panel {
+        grid-area: patchbay;    
+        width: 100%;
+    }
+
+    .switches {
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 0px;
+        padding-right: 0px;
+
+        snyth-togglebutton {
+            grid-column: 1;
+            width:  fit-content;
+            height: fit-content;
+            border-radius: 4px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                width:  28px;
+                height: 28px;
+                padding: 6px;
+            }
+        }
+
+        snyth-togglebutton.yellow::part(img) {
+            filter: invert(62%) sepia(34%) saturate(4686%) hue-rotate(14deg) brightness(25%) contrast(101%);
+        }
+
+        snyth-togglebutton.red::part(img) {
+            filter: invert(15%) sepia(93%) saturate(6799%) hue-rotate(359deg) brightness(25%) contrast(125%);
+        }
+
+        snyth-togglebutton.green::part(img) {
+            filter: invert(50%) sepia(98%) saturate(3408%) hue-rotate(91deg) brightness(25%) contrast(125%);
+        }
+
+        snyth-togglebutton.blue::part(img) {
+            filter: invert(20%) sepia(68%) saturate(6429%) hue-rotate(242deg) brightness(25%) contrast(125%);
+        }
+
+        snyth-togglebutton.yellow.on::part(img) {
+            filter: invert(62%) sepia(34%) saturate(4686%) hue-rotate(14deg) brightness(124%) contrast(101%);
+        }
+
+        snyth-togglebutton.red.on::part(img) {
+            filter: invert(15%) sepia(93%) saturate(6799%) hue-rotate(359deg) brightness(100%) contrast(114%);
+        }
+
+        snyth-togglebutton.green.on::part(img) {
+            filter: invert(50%) sepia(98%) saturate(3408%) hue-rotate(91deg) brightness(105%) contrast(109%);
+        }
+
+        snyth-togglebutton.blue.on::part(img) {
+            filter: invert(20%) sepia(68%) saturate(6429%) hue-rotate(242deg) brightness(103%) contrast(101%);
+        }
+    }
+
+    .frequencies {
+        height: 100%;
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-template-rows: 1fr 1fr;
+        justify-content: center;
+        align-items: center;
+        row-gap: 0px;
+        column-gap: 0px;
+        user-select: none;
+    }
+
+    .ranges {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+        column-gap: 0px;
+
+        padding-top: 8px;
+        padding-bottom: 8px;
+        padding-left: 0px;
+        padding-right: 0px;
+
+        snyth-minmax {
+            width: fit-content;
+            height: 100%;
+            background: transparent;
+            overflow: hidden;
+            user-select: none;
+        }
+    }
+}
+
+#LFO.visible {
+    visibility: visible;
+}
+

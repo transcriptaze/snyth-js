@@ -1,0 +1,56 @@
+button.play {
+    width: 64px;
+    height: 64px;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+    img.state {
+        grid-column: 1;
+        grid-row: 1;
+        width: 32px;
+        justify-self: center;
+        align-self: center;
+
+        content:url('/images/play.svg');
+    }
+
+    img.state.playing {
+      content:url('/images/pause.svg');
+    }
+
+    img.loop {
+        grid-column: 1;
+        grid-row: 1;
+        align-self: start;
+        justify-self: end;
+
+        width: 12px;
+        height: 12px;
+        margin-top: 4px;
+        margin-right: 4px;
+
+        opacity: 25%;
+        filter: invert(65%) sepia(48%) saturate(735%) hue-rotate(168deg) brightness(102%) contrast(102%);
+    }
+
+    img.loop.on {
+        opacity: 90%;
+        filter: invert(65%) sepia(48%) saturate(735%) hue-rotate(168deg) brightness(102%) contrast(102%);
+    }
+}
+
+button.play:hover:enabled {
+    cursor: pointer;
+}
+
+button.play:disabled {
+    img {
+        filter: invert(24%) sepia(29%) saturate(728%) hue-rotate(168deg) brightness(94%) contrast(90%);
+    }
+}

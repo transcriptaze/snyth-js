@@ -1,0 +1,29 @@
+name: build
+
+on:
+  workflow_dispatch:
+
+  push:
+    branches: [ main ]
+  
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Install sass
+      run: npm install -g sass
+
+    - name: Check out code
+      uses: actions/checkout@v3
+
+    - name: Install eslint
+      run: npm install eslint eslint-config-standard eslint-plugin-promise eslint-plugin-import eslint-plugin-node --save-dev
+
+    - name: Build
+      run: make build-all

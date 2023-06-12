@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+	 version="1.1"
+	 viewBox="-0 -240 468 1000" 
+	 fill="currentColor" 
+	 stroke="currentColor"
+	 preserveAspectRatio="xMidYMid" >
+  <path d="M288 18v500c0 10 8 18 18 18h171c10 0 18 -8 18 -18v-500c0 -10 -8 -18 -18 -18h-171c-10 0 -18 8 -18 18zM18 0c-10 0 -18 8 -18 18v500c0 10 8 18 18 18h171c10 0 18 -8 18 -18v-500c0 -10 -8 -18 -18 -18h-171z" />
+</svg>
+

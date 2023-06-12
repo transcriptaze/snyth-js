@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     viewBox="-128 -128 256 256"
+     overflow="visible">
+  <rect x="-80" y="-56" width="160" height="112" 
+        fill="none" stroke="#4eccff80" stroke-width="10" 
+        style="transform:rotate(30deg);" />
+</svg>

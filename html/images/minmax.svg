@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     version="1.1"
+     viewBox="-24 -264 48 528"
+     overflow="visible"
+     preserveAspectRatio="none">
+  <rect             x="-20" y="-256" width="40" height="512" rx="4" fill="#22222240" stroke-width="0" />
+  <rect id="extent" x="-17" y="-232" width="34" height="464"        fill="#222222ff" stroke-width="0" />
+  <rect id="range"  x="-17" y="0"    width="34" height="100"        fill="#4eccff80" stroke-width="0" />
+  <polygon id="top"    fill="#4eccffa0" points="-17,-232 +17,-232 +17,-253" />
+  <polygon id="bottom" fill="#4eccffa0" points="-17,+232 +17,+232 -17,+253" />
+  <rect x="-20" y="-256" width="40" height="512" rx="4" fill="transparent" stroke="#22222280" stroke-linejoin="round" stroke-width="6" />
+  <line id="colour" x1="-17" y1="-262" x2="+17" y2="-262" stroke="#4eccff80" stroke-width="4" />
+</svg>

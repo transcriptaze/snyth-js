@@ -1,0 +1,87 @@
+button.env-envelope {
+    background: var(--element-flat-background);
+    box-shadow: var(--element-flat-shadow);
+
+    width: 64px;
+    height: 64px;
+    position: relative;
+
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    justify-items: center;
+    align-items: center;
+
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+
+    img.star {
+        position: absolute;
+        top: 4px;
+        left: 4px;
+        width: 10px;
+
+        opacity: 80%;
+        filter: invert(65%) sepia(48%) saturate(735%) hue-rotate(168deg) brightness(102%) contrast(102%);
+    }
+
+    label {
+        position: absolute;
+        top: 0px;
+        right: 4px;
+        max-width: 60%;
+
+        color: $disabled-button-text;
+        text-align: right;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    img.env {
+        width: 64px;
+        height: 64px;
+
+        opacity: 80%;
+        filter: invert(8%) sepia(4%) saturate(0%) hue-rotate(174deg) brightness(101%) contrast(88%);    
+    }
+}
+
+button.env-envelope.edited {
+    label {
+        color: $faded-blue;
+    }
+
+   img.env {
+        opacity: 50%;
+        filter: invert(65%) sepia(48%) saturate(735%) hue-rotate(168deg) brightness(102%) contrast(102%);
+    }
+}
+
+button.env-envelope.edited.selected {
+    label {
+        color: $bright-blue;
+    }
+
+   img.env {
+        opacity: 100%;
+        filter: invert(63%) sepia(84%) saturate(476%) hue-rotate(168deg) brightness(105%) contrast(105%);
+    }
+}
+
+button.env-envelope.favourite {
+    img.star {
+        opacity: 75%;
+        filter: none;
+    }
+}
+
+button.env-envelope.favourite.selected {
+    img.star {
+        opacity: 100%;
+        filter: none;
+    }
+}
+

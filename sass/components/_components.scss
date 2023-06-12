@@ -1,0 +1,36 @@
+@import '../base/_default';
+
+:root {
+  --background: #7498aa;
+  --canvas-background: #fdf6e3;
+  --box-shadow:  4px 4px 8px #688999, -4px -4px 8px #80a7bb;
+
+  --element-flat-background: #354f69; 
+  --element-flat-shadow:  4px 4px 8px #2d4359, -4px -4px 8px #3d5b79c0;
+  --element-concave-background: linear-gradient(145deg, #30475f, #395570);
+  --element-concave-shadow:  4px 4px 8px #2d4359, -4px -4px 8px #3d5b79c0;
+  --element-convex-background: linear-gradient(145deg, #395570, #30475f);
+  --element-convex-shadow:  4px 4px 8px #2d4359, -4px -4px 8px #3d5b79c0;
+  --element-inset-background: #354f69; 
+  --element-inset-shadow: inset 20px 20px 60px #2d4359,
+                          inset -20px -20px 60px #3d5b79;
+}
+
+.element {
+  background: var(--element-concave-background);
+  box-shadow: var(--element-concave-shadow);
+}
+
+button {
+  color: $black;
+
+  font-family: sans-serif;
+  font-variant: small-caps;
+  font-variant-caps: all-small-caps;
+  font-size: 1em;
+
+  border: none;
+  border-radius: 8px;
+  outline:  none;
+}
+

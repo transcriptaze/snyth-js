@@ -1,0 +1,19 @@
+label.checkbox {
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+    justify-items: center;
+    align-items: center;
+
+    border-radius: 4px;
+    user-select: none;
+
+    input {
+        display: none;
+    }
+}
+
+:host(.enabled) {
+    color: #BF40BF;
+}
