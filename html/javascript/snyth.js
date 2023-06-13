@@ -92,7 +92,7 @@ export function setSlot (slot, url) {
 
 async function wavetable (context) {
   try {
-    await audioContext.audioWorklet.addModule('/javascript/worklets/wavetable.js')
+    await audioContext.audioWorklet.addModule('./javascript/worklets/wavetable.js')
 
     return new nodes.WavetableNode(audioContext)
   } catch (err) {

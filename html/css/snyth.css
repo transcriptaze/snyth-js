@@ -2,19 +2,19 @@
   font-family: "Lato";
   font-style: normal;
   font-weight: bold;
-  src: url("/fonts/Lato/Lato-Bold.ttf");
+  src: url("../fonts/Lato/Lato-Bold.ttf");
 }
 @font-face {
   font-family: "Lato";
   font-style: normal;
   font-weight: 700;
-  src: url("/fonts/Lato/Lato-Semibold.ttf");
+  src: url("../fonts/Lato/Lato-Semibold.ttf");
 }
 @font-face {
   font-family: "Lato";
   font-style: normal;
   font-weight: normal;
-  src: url("/fonts/Lato/Lato-Regular.ttf");
+  src: url("../fonts/Lato/Lato-Regular.ttf");
 }
 :root {
   --background: #7498aa;
@@ -56,7 +56,7 @@ html {
 
 body {
   background: var(--background);
-  background-image: url("/images/denim.webp");
+  background-image: url("../images/denim.webp");
   background-blend-mode: hard-light;
   height: 100%;
   border: none;

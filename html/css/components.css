@@ -3,19 +3,19 @@
   font-family: "Lato";
   font-style: normal;
   font-weight: bold;
-  src: url("/fonts/Lato/Lato-Bold.ttf");
+  src: url("../fonts/Lato/Lato-Bold.ttf");
 }
 @font-face {
   font-family: "Lato";
   font-style: normal;
   font-weight: 700;
-  src: url("/fonts/Lato/Lato-Semibold.ttf");
+  src: url("../fonts/Lato/Lato-Semibold.ttf");
 }
 @font-face {
   font-family: "Lato";
   font-style: normal;
   font-weight: normal;
-  src: url("/fonts/Lato/Lato-Regular.ttf");
+  src: url("../fonts/Lato/Lato-Regular.ttf");
 }
 :root {
   --background: #7498aa;
@@ -407,10 +407,10 @@ button.play img.state {
   width: 32px;
   justify-self: center;
   align-self: center;
-  content: url("/images/play.svg");
+  content: url("../images/play.svg");
 }
 button.play img.state.playing {
-  content: url("/images/pause.svg");
+  content: url("../images/pause.svg");
 }
 button.play img.loop {
   grid-column: 1;
