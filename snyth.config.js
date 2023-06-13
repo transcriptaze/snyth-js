@@ -1,3 +1,5 @@
+import terser from '@rollup/plugin-terser';
+
 export default {
     input: {
         bundle: 'html/javascript/snyth.js',
@@ -5,11 +7,14 @@ export default {
         dds: 'html/javascript/worklets/dds.js',
         lfo: 'html/javascript/worklets/lfo.js',
     },
-    output: {
-        dir: 'dist/html/javascript',
-        format: 'es',
-        sourcemap: false
-    }
+    output: [
+        {
+            dir: 'dist/html/javascript',
+            format: 'es',
+            sourcemap: false,
+            plugins: [terser()]
+        }    
+    ]
 }
 
 

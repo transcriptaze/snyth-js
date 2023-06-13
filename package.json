@@ -12,19 +12,18 @@
   "bugs": {
     "url": "https://github.com/transcriptaze/snyth/issues"
   },
-
   "type": "module",
   "scripts": {
     "test": "mocha 'tests/**/*_spec.js'"
   },
-
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.3",
+    "chai": "^4.3.7",
     "eslint": "^8.42.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-n": "^16.0.0",
     "eslint-plugin-promise": "^6.1.1",
-    "chai": "^4.3.7",
     "mocha": "^10.2.0"
   }
 }

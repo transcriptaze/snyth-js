@@ -27,6 +27,7 @@ sass:
 	find sass -name "*.scss" | entr sass --no-source-map sass/themes:html/css
 
 release:
+	rm -rf dist/html
 	mkdir -p dist/html/css
 	mkdir -p dist/html/fonts
 	mkdir -p dist/html/images
