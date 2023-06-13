@@ -17,11 +17,11 @@ button.play {
         justify-self: center;
         align-self: center;
 
-        content:url('/images/play.svg');
+        content:url('../images/play.svg');
     }
 
     img.state.playing {
-      content:url('/images/pause.svg');
+      content:url('../images/pause.svg');
     }
 
     img.loop {

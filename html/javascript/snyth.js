@@ -104,7 +104,7 @@ async function wavetable (context) {
 
 async function dds (context) {
   try {
-    await audioContext.audioWorklet.addModule('/javascript/worklets/dds.js')
+    await audioContext.audioWorklet.addModule('./javascript/worklets/dds.js')
 
     return new nodes.DDSNode(audioContext)
   } catch (err) {
@@ -116,7 +116,7 @@ async function dds (context) {
 
 async function lfo (context) {
   try {
-    await audioContext.audioWorklet.addModule('/javascript/worklets/lfo.js')
+    await audioContext.audioWorklet.addModule('./javascript/worklets/lfo.js')
 
     return new Map([
       ['lfo.1', new nodes.LFONode(audioContext, 'lfo.1')],

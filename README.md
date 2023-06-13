@@ -2,18 +2,18 @@
 
 # snyth-js
 
-In-browser Javascript implementation of the _snyth_ experimental additive synthesiser that use Jacobi
-ellipses as the generator function. For a detailed description, user guide and examples, please see the
-parent repository [README](https://github.com/transcriptaze/snyth).
+In-browser _WebAudio_ + Javascript implementation of the _snyth_ experimental additive synthesiser that 
+uses Jacobi ellipses as the generator functions for audio source oscillators. For a detailed description,
+the web app, user guide and examples, please see the parent repository [README](https://github.com/transcriptaze/snyth).
 
 ## Development
 
 The CORS requirements of current browsers require that the HTML and Javascript files be served by an 
 HTTP server that sets the correct headers in the request response. _snyth_ includes two ways to run
-a suitable HTTP server:
+a suitable HTTP server locally:
 
 1. This repository includes a Python [script](https://github.com/transcriptaze/snyth-js/httpd.py) that 
-   runs the built-in Python HTTP server with CORS support. To run it:
+   runs the built-in Python HTTP server with CORS support:
 ```
 python3 httpd.py
 ```
