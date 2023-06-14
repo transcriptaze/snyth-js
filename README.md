@@ -41,10 +41,6 @@ For bug reports and other issues please create an issue in [this](https://github
 repository. Feature requests should preferably be created as issues in the [snyth](https://github.com/transcriptaze/snyth)
 parent repository.
 
-Pull requests and other contributions are welcome but the code in this repository is currently being rearchitured and
-changing almost daily, so please submit any pull requests against the _experimental_ branch (which ironically is likely
-to be more stable than the _main_ branch, at least for the immediate future).
-
 
 ## License
 
