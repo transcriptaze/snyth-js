@@ -14,7 +14,7 @@
         <img id="logo" src="./images/logo.png" draggable="false" />
       </div>
       <div class="right">
-                <!-- MIDI file picker -->
+        <!-- MIDI file picker -->
         <snyth-picker id="midi"></snyth-picker>
         <div class="strut"></div>
 
@@ -487,12 +487,19 @@
       </div>
     </template>
 
-    <template id="template-controls-worklets">
+    <template id="template-controls-worklets">      
       <div class="worklets">          
-        <input id="wavetable" type="radio" name="worklet" value="wavetable" disabled />
-        <label for="wavetable">wavetable</label>
-        <input id="dds" type="radio" name="worklet" value="DDS" disabled />
-        <label for="dds">DDS</label>
+        <div class="checkboxes">
+          <input id="wavetable" type="radio" name="worklet" value="wavetable" disabled checked/>
+          <label for="wavetable"><img src="./images/dot.svg" /></label>
+          <input id="dds" type="radio" name="worklet" value="DDS" disabled />
+          <label for="dds"><img src="./images/dot.svg" /></label>
+          <input id="wasm" type="radio" name="worklet" value="wasm" disabled />
+          <label for="wasm"><img src="./images/dot.svg" /></label>
+          <input id="gpu" type="radio" name="worklet" value="gpu" disabled />
+          <label for="gpu"><img src="./images/dot.svg" /></label>
+        </div>
+        <label>wavetable</label>
       </div>
     </template>
 

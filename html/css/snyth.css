@@ -99,6 +99,9 @@ header div.right div.strut {
   width: 0px;
   flex-grow: 1;
 }
+header div.right snyth-worklets {
+  height: 64px;
+}
 
 header snyth-worklets {
   border-radius: 8px;

@@ -252,7 +252,20 @@ button.pushbutton img {
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto auto;
-  padding: 12px;
+  row-gap: 4px;
+  padding-top: 8px;
+  padding-bottom: 0px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.worklets div.checkboxes {
+  width: 64px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.worklets div.checkboxes img {
+  width: 8px;
 }
 .worklets label {
   font-family: sans-serif;
@@ -263,18 +276,19 @@ button.pushbutton img {
   user-select: none;
 }
 .worklets input {
-  width: 0px;
-  height: 0px;
-  visibility: hidden;
+  display: none;
 }
-.worklets input:enabled + label:hover {
+.worklets input:enabled + label:hover img {
   cursor: pointer;
 }
 .worklets input:checked + label {
   color: rgba(78, 204, 255, 0.7529411765);
 }
-.worklets input:disabled + label {
-  color: #222222;
+.worklets input:checked + label img {
+  filter: invert(15%) sepia(93%) saturate(6799%) hue-rotate(359deg) brightness(100%) contrast(114%);
+}
+.worklets input:disabled + label img {
+  filter: none;
 }
 
 .control-knob {

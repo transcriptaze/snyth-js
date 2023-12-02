@@ -1,5 +1,10 @@
 # TODO
 
+- [ ] Use processorOptions to initialise worklet sharedArrayBuffer
+      - https://webaudio.github.io/web-audio-api/#AudioWorkletNodeOptions
+      - https://googlechromelabs.github.io/web-audio-samples/audio-worklet/
+      - https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope
+
 - [ ] https://stackoverflow.com/questions/11832914/how-to-round-to-at-most-2-decimal-places-if-necessary
 - [ ] Two wavetable version changes on reset
 - [ ] Multiple invocations of AudioNode constructor
@@ -92,5 +97,8 @@
 6. https://css-tricks.com/snippets/css/animated-grainy-texture/
 7. https://www.toptal.com/designers/subtlepatterns/paper-1/
 8. https://br.pinterest.com/pin/824510644280132365/
+
+### Other
+1. https://en.wikipedia.org/wiki/Lemniscate_of_Bernoulli
 
 
