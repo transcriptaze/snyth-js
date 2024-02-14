@@ -348,11 +348,9 @@ export class SN extends AudioWorkletProcessor {
   }
 
   process (inputs, outputs, parameters) {
-    console.log('>> debug sn::process outputs:', outputs)
     if (outputs != null && outputs.length > 0) {
       const out = outputs[0]
 
-      console.log('>> debug sn::process out:', out)
       if (out != null && out.length > 0) {
         const samples = out[0].length
 
